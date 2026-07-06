@@ -1,5 +1,6 @@
 import { comparePassword, hashPassword } from '../helper/authhelper.js';
 import User from '../models/userModel.js'
+import jwt from 'jsonwebtoken';
 export const registerController = async (req , res) => {
     try {
         const { name , email , password } = req.body;
@@ -46,13 +47,20 @@ export const loginController = async (req , res) => {
     if(!ismatch) {
         res.status(400).send({ message: "Invalid password" });
     }
+
+    const token = await jwt.sign({_id:user._id} , process.env.JWT_SECRET , { expiresIn: "1d" });
+
+    if(!token) {
+        res.status(400).send({ message: "Token generation failed" });
+    }
+
    
     return res.status(200).send({ message: "Login successful",
          user:{
             name: user.name,
             email: user.email,     
             },
-     
+     token
         
         });
 
