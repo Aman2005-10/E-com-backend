@@ -5,13 +5,19 @@ export const registerController = async (req , res) => {
     try {
         const { name , email , password } = req.body;
 
+
         if(!name || !email || !password) {
             res.status(400).send({ message: "Please fill all the fields" });
         }
 
+        if(password.length < 6){
+          return res.status(400).send({ message: "Password must be at least 6 characters" });
+        }
+
+
         const existingUser = await User.findOne({ email });
         if(existingUser) {
-            res.status(400).send({ message: "User already exists" });
+            return res.status(400).send({ message: "User already exists" });
         }
 
         const hashedPassword = await hashPassword(password);
