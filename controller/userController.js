@@ -35,12 +35,12 @@ export const loginController = async (req , res) => {
     const { email , password } = req.body;
 
     if(!email || !password) {
-        res.status(400).send({ message: "Please fill all the fields" });
+        return res.status(400).send({ message: "Please fill all the fields" });
     }
 
     const user = await User.findOne({ email });
     if(!user) {
-        res.status(400).send({ message: "User does not exist" });
+        return res.status(400).send({ message: "User does not exist" });
     }
     
     const ismatch = await comparePassword(password , user.password);
@@ -48,19 +48,14 @@ export const loginController = async (req , res) => {
         res.status(400).send({ message: "Invalid password" });
     }
 
-    const token = await jwt.sign({_id:user._id} , process.env.JWT_SECRET , { expiresIn: "1d" });
+    const token = jwt.sign({_id:user._id} , process.env.JWT_SECRET , { expiresIn: "1d" });
 
-    if(!token) {
-        res.status(400).send({ message: "Token generation failed" });
-    }
-
-   
     return res.status(200).send({ message: "Login successful",
          user:{
             name: user.name,
             email: user.email,     
             },
-     token
+           token
         
         });
 
