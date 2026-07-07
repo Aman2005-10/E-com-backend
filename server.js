@@ -6,6 +6,7 @@ import cors from 'cors'
 import connectDB from './config/db.js'
 import userRoute from './routes/userRoute.js'
 import productRoute from './routes/productRoute.js'
+import cartRoute from "./routes/cartRoute.js"
 const app = express()
 
 app.use("/uploads", express.static("uploads"));
@@ -13,6 +14,7 @@ app.use(express.json())
 app.use(cors())
 app.use('/api', userRoute)
 app.use('/api' , productRoute)
+app.use('/api' , cartRoute)
 
 
 
