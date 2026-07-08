@@ -11,4 +11,5 @@ route.delete("/delete-product/:id" , isSignedIn , isAdmin , deleteController)
 route.get("/get-all" , isSignedIn ,  getAllProductCont)
 route.get("/get-one/:id" , isSignedIn , getProductById)
 
+
 export default route
