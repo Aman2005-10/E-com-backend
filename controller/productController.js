@@ -3,9 +3,9 @@ import Product from "../models/productModel.js";
 
 export const createProduct = async (req, res) => {
   try {
-    const { title, description, price, category, stock } = req.body;
+    const { title, description, price, category, image , stock } = req.body;
 
-     if(!title || !description || !price || !category || !stock){
+     if(!title || !description || !price || !category || !image || !stock){
       return res.status(400).json({
         success: false,
         message: "All fileds  are required",
@@ -13,12 +13,12 @@ export const createProduct = async (req, res) => {
     } 
     
 
-    if (!req.file) {
-      return res.status(400).json({
-        success: false,
-        message: "Product image is required",
-      });
-    }
+    // if (!req.file) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Product image is required",
+    //   });
+    // }
 
    
 
@@ -33,7 +33,7 @@ export const createProduct = async (req, res) => {
       price,
       category,
       stock,
-      image:req.file.path.replace(/\\/g, "/"),
+      image,
     });
 
     return res.status(201).json({

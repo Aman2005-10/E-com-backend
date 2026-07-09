@@ -5,7 +5,7 @@ import { isAdmin, isSignedIn } from '../middlware/authMiddlware.js'
 
 const route   = express.Router()
 
-route.post("/create-cart" , isSignedIn  , createCartController)
+route.post("/create-cart" , isSignedIn , createCartController)
 route.get("/get-cart" , isSignedIn , getCartController)
 
 route.delete("/delete-cart/:id" , isSignedIn , isAdmin , removeCart)
