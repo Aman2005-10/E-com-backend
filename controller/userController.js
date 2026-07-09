@@ -15,38 +15,40 @@ export const registerController = async (req, res) => {
       });
     }
 
-    if (password.length < 6) {
-      return res.status(400).json({
-        success: false,
-        message: "Password must be at least 6 characters",
-      });
-    }
+    // if (password.length < 6) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Password must be at least 6 characters",
+    //   });
+    // }
 
     // Check existing user
-    const existingUser = await User.findOne({ email });
+    // const existingUser = await User.findOne({ email });
 
-    if (existingUser) {
-      return res.status(400).json({
-        success: false,
-        message: "User already exists",
-      });
-    }
+    // if (existingUser) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "User already exists",
+    //   });
+    // }
 
-    // Hash password
-    const hashedPassword = await hashPassword(password);
+    // // Hash password
+    // const hashedPassword = await hashPassword(password);
 
     // Save user
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
 
-    return res.status(201).json({
-      success: true,
-      message: "User created successfully",
-      user,
-    });
+
+    // const user = await User.create({
+    //   name,
+    //   email,
+    //   password: hashedPassword,
+    // });
+
+    // return res.status(201).json({
+    //   success: true,
+    //   message: "User created successfully",
+    //   user,
+    // });
   } catch (error) {
     console.log(error);
 
